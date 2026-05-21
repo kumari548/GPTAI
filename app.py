@@ -206,5 +206,5 @@ def chat():
     return jsonify({
         "response": ai_response
     })
-if __name__ == "__main__":
-    app.run(debug=True)
+#if __name__ == "__main__":
+ #S   app.run(debug=True)
