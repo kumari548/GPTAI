@@ -9,8 +9,24 @@ load_dotenv()
 
 app = Flask(__name__)
 # Initialize Firebase
-cred = credentials.Certificate("serviceAccountKey.json")
-firebase_admin.initialize_app(cred)
+import streamlit as st
+import firebase_admin
+from firebase_admin import credentials
+
+firebase_credentials = {
+    "type": st.secrets["FIREBASE_TYPE"],
+    "project_id": st.secrets["FIREBASE_PROJECT_ID"],
+    "private_key_id": st.secrets["FIREBASE_PRIVATE_KEY_ID"],
+    "private_key": st.secrets["FIREBASE_PRIVATE_KEY"],
+    "client_email": st.secrets["FIREBASE_CLIENT_EMAIL"],
+    "client_id": st.secrets["FIREBASE_CLIENT_ID"],
+    "token_uri": "https://oauth2.googleapis.com/token"
+}
+
+cred = credentials.Certificate(firebase_credentials)
+
+if not firebase_admin._apps:
+    firebase_admin.initialize_app(cred)
 
 # Firestore DB
 db = firestore.client()
